@@ -50,6 +50,6 @@
     </Flows>
     <HTTPTargetConnection>
         <Properties/>
-        <URL>https://order.dominos.com/{pathSuffix}</URL>
+        <URL>https://kurtkanaskietrainer-trial-test.apigee.net/carts-v1-mock/{pathSuffix}</URL>
     </HTTPTargetConnection>
 </TargetEndpoint>
