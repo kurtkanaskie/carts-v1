@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-get-service-method">
+    <DisplayName>EV-get-service-method</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="serviceMethod">
+            <JSONPath>$.Order.ServiceMethod</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">cart</Source>
+</ExtractVariables>

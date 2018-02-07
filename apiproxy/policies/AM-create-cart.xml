@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-create-cart">
+    <DisplayName>AM-create-cart</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="application/json">
+{
+    "Cart": {
+        "CartID":"{messageid}",
+        "CreatedAtTimestamp":"{system.timestamp}",
+        "CreatedAt":"{system.time}"
+    },
+    "Order": 
+        {request.content}
+}
+</Payload>
+        <StatusCode>201</StatusCode>
+        <ReasonPhrase>Created</ReasonPhrase>
+    </Set>
+    <AssignVariable>
+        <Name>cartId</Name>
+        <Ref>messageid</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>cart</Name>
+        <Ref>request.content</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

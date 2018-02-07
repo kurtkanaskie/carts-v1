@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KV-get-cart" mapIdentifier="carts">
+    <DisplayName>KV-get-cart</DisplayName>
+    <Get assignTo="cart">
+        <Key>
+            <Parameter ref="cartId"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

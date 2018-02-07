@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-customer-response">
+    <DisplayName>AM-customer-response</DisplayName>
+    <Properties/>
+    <Set>
+        <Payload contentType="application/json">
+{ 
+    "Cart" : {cart}, 
+    "Order" : { 
+        "StoreID" : "{storeId}",
+        "Address" : {customer}
+    }
+}
+</Payload>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

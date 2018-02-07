@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-get-product">
+    <DisplayName>JS-get-product</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://JS-get-product.js</ResourceURL>
+</Javascript>

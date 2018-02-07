@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-get-customer">
+    <DisplayName>EV-get-customer</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="customer">
+            <JSONPath>$.Order.Address</JSONPath>
+        </Variable>
+        <Variable name="storeId">
+            <JSONPath>$.Order.StoreID</JSONPath>
+        </Variable>
+        <Variable name="cart">
+            <JSONPath>$.Cart</JSONPath>
+        </Variable>
+        <Variable name="products">
+            <JSONPath>$.Order.Products</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source>cart</Source>
+</ExtractVariables>

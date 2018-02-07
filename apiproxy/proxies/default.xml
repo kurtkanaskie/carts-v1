@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request/>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows>
+        <Flow name="/carts">
+            <Description>Create cart</Description>
+            <Request>
+                <Step>
+                    <Name>AM-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}">
+            <Description>Delete cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>KV-delete-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*") and (request.verb = "DELETE")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}">
+            <Description>Get cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/customer">
+            <Description>Get customer from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-get-customer</Name>
+                </Step>
+                <Step>
+                    <Name>AM-customer-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/customer") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/customer">
+            <Description>Create or update customer in cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-add-customer</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/customer") and (request.verb = "PUT")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/products">
+            <Description>Add product to cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-add-product</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/products") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/products">
+            <Description>Get products from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-get-customer</Name>
+                </Step>
+                <Step>
+                    <Name>AM-products-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/products") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/products/{productId}">
+            <Description>Delete product from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-del-product</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/products/*") and (request.verb = "DELETE")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/products/{productId}">
+            <Description>Get product detail from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>JS-get-product</Name>
+                </Step>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/products/*") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/products/{productId}">
+            <Description>Update product detail from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-put-product</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/products/*") and (request.verb = "PUT")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/serviceMethod">
+            <Description>Get service method from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-get-service-method</Name>
+                </Step>
+                <Step>
+                    <Name>AM-service-method-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/serviceMethod") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/serviceMethod">
+            <Description>Create or Update service method in cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-put-service-methodjs</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/serviceMethod") and (request.verb = "PUT")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/place">
+            <Description>Place order from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>EV-order</Name>
+                </Step>
+                <Step>
+                    <Name>AM-set-order</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/place") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/price">
+            <Description>Price order from cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>EV-order</Name>
+                </Step>
+                <Step>
+                    <Name>AM-set-order</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/price") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="/carts/{cartId}/store">
+            <Description>Create or updated store in cart</Description>
+            <Request>
+                <Step>
+                    <Name>EV-get-cart-id</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+                <Step>
+                    <Condition>cart == null</Condition>
+                    <Name>RF-cart-not-found</Name>
+                </Step>
+                <Step>
+                    <Name>JS-put-store</Name>
+                </Step>
+                <Step>
+                    <Name>KV-create-cart</Name>
+                </Step>
+                <Step>
+                    <Name>KV-get-cart</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-cart-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/*/store") and (request.verb = "PUT")</Condition>
+        </Flow>
+        <Flow name="/catchall">
+            <Description>Error verb and suffix not found</Description>
+            <Request>
+                <Step>
+                    <Name>RF-CatchAll</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <HTTPProxyConnection>
+        <BasePath>/v1/carts</BasePath>
+        <Properties/>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="/carts">
+        <Condition>((proxy.pathsuffix MatchesPath "/*/price") or (proxy.pathsuffix MatchesPath "/*/place")) and (request.verb = "POST")</Condition>
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+    <RouteRule name="no-route"/>
+</ProxyEndpoint>

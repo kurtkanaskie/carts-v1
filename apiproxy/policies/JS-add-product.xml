@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-add-product">
+    <DisplayName>JS-add-product</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://JS-add-product.js</ResourceURL>
+</Javascript>

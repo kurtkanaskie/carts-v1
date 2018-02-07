@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="8" name="carts-v1">
+    <Basepaths>/v1/carts</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1518029172932</CreatedAt>
+    <CreatedBy>kurtkanaskie@google.com</CreatedBy>
+    <Description>Added place order but only to test bad request. Added detection of bad order price or place responses by merely checking for Status != 1 and setting 400 Bad Request. Added CreatedAt and UpdatedAt time.</Description>
+    <DisplayName>carts-v1</DisplayName>
+    <LastModifiedAt>1518029379810</LastModifiedAt>
+    <LastModifiedBy>kurtkanaskie@google.com</LastModifiedBy>
+    <Policies>
+        <Policy>AM-cart-response</Policy>
+        <Policy>AM-create-cart</Policy>
+        <Policy>AM-customer-response</Policy>
+        <Policy>AM-order-error</Policy>
+        <Policy>AM-products-response</Policy>
+        <Policy>AM-service-method-response</Policy>
+        <Policy>AM-set-order</Policy>
+        <Policy>AM-set-target-url-place-order</Policy>
+        <Policy>AM-set-target-url-price-order</Policy>
+        <Policy>EV-get-cart-id</Policy>
+        <Policy>EV-get-customer</Policy>
+        <Policy>EV-get-service-method</Policy>
+        <Policy>EV-order-response</Policy>
+        <Policy>EV-order</Policy>
+        <Policy>JS-add-customer</Policy>
+        <Policy>JS-add-product</Policy>
+        <Policy>JS-del-product</Policy>
+        <Policy>JS-get-product</Policy>
+        <Policy>JS-put-product</Policy>
+        <Policy>JS-put-service-methodjs</Policy>
+        <Policy>JS-put-store</Policy>
+        <Policy>KV-create-cart</Policy>
+        <Policy>KV-delete-cart</Policy>
+        <Policy>KV-get-cart</Policy>
+        <Policy>RF-CatchAll</Policy>
+        <Policy>RF-cart-not-found</Policy>
+        <Policy>remove-header-x-apikey</Policy>
+        <Policy>verify-api-key</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JS-add-customer.js</Resource>
+        <Resource>jsc://JS-add-product.js</Resource>
+        <Resource>jsc://JS-del-product.js</Resource>
+        <Resource>jsc://JS-get-product.js</Resource>
+        <Resource>jsc://JS-put-product.js</Resource>
+        <Resource>jsc://JS-put-service-methodjs.js</Resource>
+        <Resource>jsc://JS-put-store.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+    <validate>false</validate>
+</APIProxy>
